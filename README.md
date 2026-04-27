@@ -18,4 +18,18 @@ Simples, prático e nunca mais perca seu café!
 
 ---
 
+## 🚀 Sobre o Deploy
+
+Este app foi criado principalmente para testar e demonstrar **deploy automatizados**. Utilizamos uma stack moderna de DevOps:
+
+- **GitHub Actions** - CI/CD automatizado
+- **Docker Compose** - Orquestração de containers
+- **Nginx** - Proxy reverso e certificados HTTPS
+- **Duck DNS** - DNS dinâmico para acesso remoto
+- **Oracle Cloud** - VPS hospedagem
+
+O serviço está ao vivo e disponível em: **https://coffetimer.duckdns.org/**
+
+---
+
 Criado com ❤️ por [@Gu1Assis](https://github.com/Gu1assis)
