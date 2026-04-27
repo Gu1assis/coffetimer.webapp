@@ -1,0 +1,34 @@
+name: Deploy na Oracle Cloud
+
+on:
+  push:
+    branches: [ main ] # Só roda quando houver push na branch principal
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Baixa o código do repositório para a máquina do GitHub
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # 2. Acessa sua VM e executa os comandos de deploy
+      - name: Executar comandos via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          # Aqui é o script que rodará DENTRO da sua VM Oracle
+          script: |
+            # Entra na pasta do projeto ou clona se não existir
+            [ -d "~/coffetimer.webapp" ] || git clone https://github.com/Gu1assis/coffetimer.webapp.git ~/coffetimer.webapp
+            cd ~/coffetimer.webapp
+            
+            # Atualiza o código
+            git pull origin main
+            
+            # Reconstrói os containers (Docker Compose)
+            # O --build força o Docker a ler seu Dockerfile de novo
+            sudo docker compose up -d --build
