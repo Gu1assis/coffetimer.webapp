@@ -1,6 +1,7 @@
 services:
   frontend:
     build: .
+    container_name: coffetimer-front
     restart: always
   nginx-proxy:
       image: 'jc21/nginx-proxy-manager:latest'
