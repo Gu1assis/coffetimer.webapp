@@ -1,7 +1,14 @@
 services:
   frontend:
     build: .
-    container_name: coffetimer-front
-    ports:
-      - "80:80"
     restart: always
+  nginx-proxy:
+      image: 'jc21/nginx-proxy-manager:latest'
+      restart: always
+      ports:
+        - '80:80'   # Porta HTTP
+        - '443:443' # Porta HTTPS
+        - '81:81'   # Porta de Administração (Interface Web)
+      volumes:
+        - ./data:/data
+        - ./letsencrypt:/etc/letsencrypt
